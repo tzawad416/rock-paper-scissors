@@ -1,9 +1,9 @@
-let choices = ['Rock', 'Papers', 'Scissors'];
-let choicesindex = [0, 1, 2];
-let roundsrange = [1, 2, 3, 4, 5];
-let yourwinsets = ['02', '10', '21']; // PLAYER vs. COMP combos where the player wins
-let yourtotalwins = 0;
-let yourtotallosses = 0;
+let choices = ['Rock', 'Papers', 'Scissors']; // available choices
+let choicesindex = [0, 1, 2];                 // numerification of available choices
+let roundsrange = [1, 2, 3, 4, 5];            // list of accepted number of rounds
+let yourwinsets = ['02', '10', '21'];         // PLAYER vs. COMP combos where the player wins
+let yourtotalwins = 0;                        // global initial value for player wins
+let yourtotallosses = 0;                      // global initial value for player losses
 
 function computerPlay() {
     let indexrange = 10;
@@ -27,9 +27,10 @@ function playRound(yourindex, compindex) {
         }
     }
 }
+
 function game(roundname) {
     let yourindex;
-    console.log('Round ' + roundname);
+    console.log('[Round ' + roundname + ']');
     while (!(Number.isInteger(yourindex) && choicesindex.includes(yourindex))) {
         yourindex = parseInt(prompt("What is your move, player? 1 = Rock, 2 = Papers, 3 = Scissors")) - 1;
         if (!(Number.isInteger(yourindex) && choicesindex.includes(yourindex))) {
@@ -43,14 +44,16 @@ function game(roundname) {
 }
 
 /* main */
-console.log('BEGINNING MATCH');
+console.log('--- BEGINNING MATCH ---');
 let numrounds = parseInt(prompt("How many rounds?"));
 if (!(Number.isInteger(numrounds) && roundsrange.includes(numrounds))) {
-    throw new Error("Fuck off!")
+    console.log(`We do max ${Math.max(...roundsrange)} rounds. Fuck off!`);
+} else {
+    for (round = 1; round <= numrounds; round++) {
+        game(round);
+    }
+    console.log('[Match Summary]');
+    console.log("Your total wins: " + yourtotalwins);
+    console.log("Your total losses: " + yourtotallosses);
 }
-for (round = 1; round <= numrounds; round++) {
-    game(round);
-}
-console.log("Your total wins: " + yourtotalwins);
-console.log("Your total losses: " + yourtotallosses);
-console.log('ENDING MATCH');
+console.log('--- ENDING MATCH ---');
