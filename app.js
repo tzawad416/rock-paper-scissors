@@ -3,8 +3,8 @@ let choicesindex = [0, 1, 2];                 // numerification of available cho
 let yourwinsets = ['02', '10', '21'];         // PLAYER vs. COMP combos where the player wins
 let yourtotalwins = 0;                        // global initial value for player wins
 let yourtotallosses = 0;                      // global initial value for player losses
-let maxrounds = 10000;                        // list of accepted number of rounds
-// let yourwincountpct = 0.00;                // percent of wins out of total wins+losses
+let maxrounds = 5;                        // list of accepted number of rounds
+ let yourwincountpct = 0.00;                // percent of wins out of total wins+losses
 
 function computerPlay() {
     let indexrange = 10;
@@ -52,17 +52,16 @@ let numrounds = parseInt(prompt("How many rounds?"));
 if (!(Number.isInteger(numrounds) && numrounds <= maxrounds)) {
     console.log(`We do min 1 to max ${maxrounds} rounds. Fuck off!`);
 } else {
-    for (round = 1; round <= numrounds; round++) {
+    /*for (round = 1; round <= numrounds; round++) {
         game(round);
-    }
-    /* See how long it takes for wins to dominate *//*
+    }*/
+    /* See how long it takes for wins to dominate */
     let round = 1;
     while (yourwincountpct < 50.00) {
         game(round);
         round++;
         yourwincountpct = 100*(yourtotalwins / (yourtotalwins + yourtotallosses));
     }
-    */
     console.log('[Match Summary]');
     console.log("Your total wins: " + yourtotalwins);
     console.log("Your total losses: " + yourtotallosses);
