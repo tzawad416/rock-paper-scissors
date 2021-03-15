@@ -1,10 +1,49 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="styles.css">
+        </style>
         <title>Rock Papers Scissors</title>
     </head>
     <body>
-        <p>This viewport will display Rock Papers Scissors front-end UI later...</p>
         <script src="app.js"></script>
+        <div class = "rps-viewport">
+            <div class="rps-title">
+                <p id="rps-title-text">PLACEHOLDER TITLE</p>
+            </div>
+            <div class="rps-gamemessage">
+                <p id="rps-gamemessage-text">PLACEHOLDER MESSAGE</p>
+            </div>
+            <div class="rps-weaponsmessage">
+                <p id="rps-weaponsmessage-text">PLACEHOLDER CHOICES</p>
+            </div>
+            <div class="rps-weaponimages">
+                <div id="rps-weaponspadding1"></div>
+                <div id="rps-weaponspadding2"></div>
+                <div id="rps-rocksimg">
+                    <input type="image" value="1" id="rps-rocksimg-btn" class="rps-weaponimages-img" src="images/rockicon.png">
+                </div>
+                <div id="rps-papersimg">
+                    <input type="image" value="2" id="rps-papersimg-btn" class="rps-weaponimages-img" src="images/papersicon.png">
+                </div>
+                <div id="rps-scissorsimg">
+                    <input type="image" value="3" id="rps-scissorsimg-btn" class="rps-weaponimages-img" src="images/scissorsicon.png">
+                </div>
+                <div id="rps-weaponspadding3"></div>
+                <div id="rps-weaponspadding4"></div>
+            </div>
+            <div class="rps-playerscores">
+                <table class="rps-playerscores-table">
+                    <tr class="rps-playerscores-table-header">
+                        <th id="rps-playername">YOU</th>
+                        <th id="rps-computername">COMPUTER</th>
+                    </tr>
+                    <tr class="rps-playerscores-table-scores">
+                        <td id="rps-playerscore">0</td> 
+                        <td id="rps-computerscore">0</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </body>
 </html>
