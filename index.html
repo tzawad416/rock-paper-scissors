@@ -2,35 +2,33 @@
 <html>
     <head>
         <link rel="stylesheet" href="styles.css">
-        </style>
-        <title>Rock Papers Scissors</title>
+        <title>Rock / Paper / Scissors</title>
     </head>
     <body>
-        <script src="app.js"></script>
         <div class = "rps-viewport">
             <div class="rps-title">
-                <p id="rps-title-text">PLACEHOLDER TITLE</p>
-            </div>
-            <div class="rps-gamemessage">
-                <p id="rps-gamemessage-text">PLACEHOLDER MESSAGE</p>
+                <p id="rps-title-text">WELCOME TO TAHMID'S ROCK / PAPER / SCISSORS GAME</p>
             </div>
             <div class="rps-weaponsmessage">
-                <p id="rps-weaponsmessage-text">PLACEHOLDER CHOICES</p>
+                <p id="rps-weaponsmessage-text">PICK ANY OF THE THREE CHOICES BELOW</p>
             </div>
             <div class="rps-weaponimages">
                 <div id="rps-weaponspadding1"></div>
                 <div id="rps-weaponspadding2"></div>
-                <div id="rps-rocksimg">
+                <div id="rps-rocksimg" title='Rock'>
                     <input type="image" value="1" id="rps-rocksimg-btn" class="rps-weaponimages-img" src="images/rockicon.png">
                 </div>
-                <div id="rps-papersimg">
+                <div id="rps-papersimg" title="Paper">
                     <input type="image" value="2" id="rps-papersimg-btn" class="rps-weaponimages-img" src="images/papersicon.png">
                 </div>
-                <div id="rps-scissorsimg">
+                <div id="rps-scissorsimg" title="Scissors">
                     <input type="image" value="3" id="rps-scissorsimg-btn" class="rps-weaponimages-img" src="images/scissorsicon.png">
                 </div>
                 <div id="rps-weaponspadding3"></div>
                 <div id="rps-weaponspadding4"></div>
+            </div>
+            <div class="rps-gamemessage">
+                <p id="rps-gamemessage-text"> ROUND NUMBER: <span id="rps-gamemessage-text-rounds">_</span></p>
             </div>
             <div class="rps-playerscores">
                 <table class="rps-playerscores-table">
@@ -44,6 +42,11 @@
                     </tr>
                 </table>
             </div>
+            <div class="rps-eventlog">
+                <span id="rps-eventlog-title">EVENT LOG</span>
+                <span id="rps-eventlog-text"></span>
+            </div>
         </div>
+        <script src="app.js"></script>
     </body>
 </html>

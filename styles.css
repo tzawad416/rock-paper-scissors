@@ -1,8 +1,8 @@
 html, body {
-    height: 100%;
+    height:max-content;
 }
 .rps-viewport {
-    height: 100%;
+    height: max-content;
     background-color: rgb(228, 213, 221);
 }
 .rps-weaponimages-img {
@@ -15,6 +15,13 @@ html, body {
     display: grid;
     grid-template-columns: (7, 1fr);
     align-items: center;
+}
+#rps-title-text, #rps-gamemessage-text, #rps-weaponsmessage-text {
+    font-family: sans-serif;
+    font-size: x-large;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 10px;
 }
 #rps-weaponspadding1 {
     grid-row: 1;
@@ -90,6 +97,24 @@ html, body {
     font-size: x-large;
     margin-top: 20px;
     margin-bottom: 20px;
+}
+.rps-eventlog {
+    margin-left: auto;
+    margin-right: auto;
+    font-family: sans-serif;
+    font-size: x-large;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    overflow: scroll;
+    padding-bottom: 30px;
+}
+#rps-eventlog-title {
+    font-size: 18px;
+    font-weight: bolder;
+}
+#rps-eventlog-text {
+    font-size: 13px;
 }
 th, td {
     text-align: center;

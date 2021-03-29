@@ -1,96 +1,131 @@
-document.addEventListener('DOMContentLoaded', event => { 
+let choices = ['Rock', 'Papers', 'Scissors'];           // respective names of available choices
+let yourwinsets = ['02', '10', '21'];                   // PLAYER vs. COMP combos where the player wins
+let yourtotalwins;                                      // initialize variable for your total wins
+let yourtotallosses;                                    // initialize variable for your total losses
+let maxrounds = 100;                                    // max number of rounds allowed
+let roundnum;                                           // initialize variable for round number
+let roundNumberPrompt = "How many rounds?";             // initial game begin prompt
+let errorMsg = '';                                      // initial game begin error message
+let numrounds;                                          // initialize variable for number of rounds to be played
+let winsneeded;                                         // number of wins needed for either side
+let endgameMsg;                                         // end game prompt message (who won?)
+let playAgain;                                          // value of play again prompt (1 = yes, else = no)
+let playAgainPrompt = "Play again? (1 = Yes, else No)"  // prompt asking if game should be played again
 
-    // When HTML/DOM elements are ready:
-    let run = true;
-    if (run) {
+let muskygifurl = "https://media.tenor.com/images/a061350e5c5db9d25638bbeb5e4a6778/tenor.gif" // gift for non-replaying cucks
 
-        let choices = ['Rock', 'Papers', 'Scissors']; // available choices
-        let choicesindex = [0, 1, 2];                 // numerification of available choices
-        let yourwinsets = ['02', '10', '21'];         // PLAYER vs. COMP combos where the player wins
-        let yourtotalwins = 0;                        // global initial value for player wins
-        let yourtotallosses = 0;                      // global initial value for player losses
-        let maxrounds = 5;                        // list of accepted number of rounds
-        let yourwincountpct = 0.00;                // percent of wins out of total wins+losses
+window.addEventListener('DOMContentLoaded', beginGame);
 
-        function computerPlay() {
-            let indexrange = 10;
-            let playindex = Math.floor(Math.random() * indexrange);
-            playindex = playindex % choices.length;
-            return playindex;
-        }
-        
-        function playRound(yourindex, compindex) {
-            let winner;
-            if (yourindex == compindex) {
-                winner = "None!";
-            } else {
-                yourplayset = yourindex.toString() + compindex.toString();
-                if (yourwinsets.includes(yourplayset)) {
-                    yourtotalwins++;
-                    winner = "You!" 
-                } else {
-                    yourtotallosses++;
-                    winner =  "Computer!";
-                }
-            }
-            return winner;
-        }
-        
-        function game(roundname) {
-            let yourindex;
-            const rockbutton = document.getElementById('rps-rocksimg-btn');
-            const papersbutton = document.getElementById('rps-papersimg-btn');
-            const scissorsbutton = document.getElementById('rps-scissorsimg-btn');
-            console.log('[Round ' + roundname + ']');
-            while (!(Number.isInteger(yourindex) && choicesindex.includes(yourindex))) {
-                //yourindex = parseInt(prompt("What is your move, player? 1 = Rock, 2 = Papers, 3 = Scissors")) - 1;
-                while (!(yourindex)) {
-                    rockbutton.addEventListener('click', (e) => {
-                        e.preventDefault(); // disable the refresh on the page when submit
-                        yourindex = rockbutton.value - 1;
-                    });
-                    papersbutton.addEventListener('click', (e) => {
-                        e.preventDefault(); // disable the refresh on the page when submit
-                        yourindex = papersbutton.value - 1;
-                    });
-                    scissorsbutton.addEventListener('click', (e) => {
-                        e.preventDefault(); // disable the refresh on the page when submit
-                        yourindex = scissorsbutton.value - 1;
-                    });
-                }
-                if (!(Number.isInteger(yourindex) && choicesindex.includes(yourindex))) {
-                    console.log("Invalid submission! Asking again!");
-                }
-            }
-            // yourindex = computerPlay(); // treating user as another 'computer' 
-            let compindex = computerPlay();
-            console.log('You chose: ' + choices[yourindex]);
-            console.log('Computer chose: ' + choices[compindex]);
-            console.log('So, who won? ' + playRound(yourindex, compindex));
-        }
-        
-        /* main */
-        console.log('--- BEGINNING MATCH ---');
-        let numrounds = parseInt(prompt("How many rounds?"));
-        if (!(Number.isInteger(numrounds) && numrounds <= maxrounds)) {
-            console.log(`We do min 1 to max ${maxrounds} rounds. Fuck off!`);
-        } else {
-            for (round = 1; round <= numrounds; round++) {
-                game(round);
-            }
-            /* See how long it takes for wins to dominate */
-            /* let round = 1;
-            while (yourwincountpct < 50.00) {
-                game(round);
-                round++;
-                yourwincountpct = 100*(yourtotalwins / (yourtotalwins + yourtotallosses));
-            } */
-            console.log('[Match Summary]');
-            console.log("Your total wins: " + yourtotalwins);
-            console.log("Your total losses: " + yourtotallosses);
-        }
-        console.log('--- ENDING MATCH ---');
-    }
+rockbutton = document.getElementById('rps-rocksimg-btn');
+papersbutton = document.getElementById('rps-papersimg-btn');
+scissorsbutton = document.getElementById('rps-scissorsimg-btn');
+
+rockbutton.addEventListener('click', (e) => {
+    playRound(rockbutton.value - 1, computerPlay());
 });
 
-/*-----------------------------------------------------------------------------------------*/
+papersbutton.addEventListener('click', (e) => {
+    playRound(papersbutton.value - 1, computerPlay());
+});
+
+scissorsbutton.addEventListener('click', (e) => {
+    playRound(scissorsbutton.value - 1, computerPlay());
+});
+
+function computerPlay() {
+    let indexrange = 10;
+    let playindex = Math.floor(Math.random() * indexrange);
+    playindex = playindex % choices.length;
+    return playindex;
+}
+
+function playRound(yourindex, compindex) {
+    eventlog('[Round #' + roundnum.toString() + '] ', true, true);
+    eventlog('You picked ' + choices[yourindex] + '.');
+    eventlog('Computer picked ' + choices[compindex] + '.');
+    if (!(yourindex == compindex)) {
+        yourplayset = yourindex.toString() + compindex.toString();
+        if (yourwinsets.includes(yourplayset)) {
+            yourtotalwins++;
+            eventlog('You won this round!');
+        } else {
+            yourtotallosses++;
+            eventlog('Computer won this round!'); 
+        }
+        roundnum += 1;
+    } else {
+        eventlog('Neither won this round! Redoing!')
+    }
+    if (roundnum > numrounds || yourtotallosses >= winsneeded || yourtotalwins >= winsneeded) {
+        endGame();
+    } else {
+        updateRound(roundnum, numrounds);
+    }
+}
+
+function beginGame() {
+    roundnum = 1;
+    yourtotalwins = 0;
+    yourtotallosses = 0;
+    nukeeventlog();
+    roundNumberPrompt = "How many rounds?";
+    numrounds = parseInt(prompt(errorMsg + roundNumberPrompt));
+    if (!(Number.isInteger(numrounds) && numrounds <= maxrounds)) {
+        errorMsg = 'Please pick a value between 1 and ' + maxrounds.toString() + '. ';
+        beginGame();
+    } else {
+        errorMsg = '';
+        winsneeded = Math.floor(numrounds / 2) + 1;
+        eventlog("Number of wins needed: " + winsneeded.toString(), false, true);
+        updatePlayerWinCount(yourtotalwins);
+        updateComputerWinCount(yourtotallosses);
+        updateRound(roundnum, numrounds);
+    }
+}
+
+function endGame() {
+    updatePlayerWinCount(yourtotalwins);
+    updateComputerWinCount(yourtotallosses);     
+    if (yourtotalwins > yourtotallosses) {
+        endgameMsg = 'YOU have WON!';
+    } else if (yourtotallosses > yourtotalwins) {
+        endgameMsg = 'COMPUTER has WON!';
+    } else {
+        endgameMsg = 'NEITHER have won!';
+    }
+    playAgain = parseInt(prompt(endgameMsg + ' ' + playAgainPrompt));
+    if (playAgain == 1) {
+        beginGame();
+    } else {
+        window.location.href = muskygifurl;
+    }
+}
+
+function updatePlayerWinCount(value) {
+    document.getElementById('rps-playerscore').innerHTML = value.toString();
+}
+
+function updateComputerWinCount(value) {
+    document.getElementById('rps-computerscore').innerHTML = value.toString();   
+}
+
+function updateRound(roundnum, numrounds) {
+    updatePlayerWinCount(yourtotalwins);
+    updateComputerWinCount(yourtotallosses);     
+    document.getElementById('rps-gamemessage-text-rounds').innerHTML =  roundnum.toString() + ' / ' + numrounds.toString();
+}
+
+function eventlog(text, isbold = false, isbreak = false) {
+    if (isbreak) {
+        let breakelem = document.createElement("br");    
+        document.getElementById('rps-eventlog-text').append(breakelem);
+    }
+    let eventpara = document.createElement("span");
+    eventpara.textContent = text + " ";
+    if (isbold) eventpara.style.cssText = 'font-weight:bold;';
+    document.getElementById('rps-eventlog-text').append(eventpara);
+}
+
+function nukeeventlog() {
+    document.getElementById('rps-eventlog-text').innerHTML = "";
+}
